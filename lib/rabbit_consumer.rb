@@ -3,6 +3,7 @@ require "openssl"
 require 'amqp'
 require 'json'
 require 'httparty'
+require 'mandrill'
 $:.unshift File.dirname(__FILE__)
 
 require 'consumer/custom_logger.rb'
@@ -33,6 +34,23 @@ module RabbitConsumer
       queue = channel.queue("email.welcome").bind(exchange, routing_key: 'email.welcome')
       queue.subscribe do |payload|
         custom_logger.info(payload)
+         
+        m = Mandrill::API.new
+        message = {  
+         :subject=> "Hello from the Mandrill API",  
+         :from_name=> "Jesse Ocon",  
+         :text=>"Hi Jesse, how are you?",  
+         :to=>[  
+           {  
+             :email=> "jesseocon@gmail.com",  
+             :name=> "Jesse Ocon"  
+           }  
+         ],  
+         :html=>"<html><h1>Hi <strong>message</strong>, how are you?</h1></html>",  
+         :from_email=>"jesseocon@gmail.com"  
+        }  
+        sending = m.messages.send message  
+        puts sending
       end
 
       show_stopper = Proc.new { connection.close { EventMachine.stop } }
