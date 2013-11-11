@@ -47,5 +47,21 @@ describe RabbitConsumer::Mailer do
     end
   end
   
+  describe 'the response from Mailer#sendit' do
+    it "should return the correct response" do
+      response = mailer.sendit
+      response.first["email"].should == mailer.to_email
+      response.first["status"].should == 'sent'
+    end
+  end
+  
+  describe 'the response when the email address is invalid' do
+    it 'should return an error response' do
+      mailer.to_email = 'wrongaddress@jesse,com'
+      response = mailer.sendit
+      response.first["status"].should == 'invalid'
+    end
+  end
+  
   
 end

@@ -26,7 +26,7 @@ module RabbitConsumer
     end
     
     def sendit
-      repsonse = @mandrill.send(self.message)
+      response = @mandrill.messages.send(self.message)
     end
     
     def html
