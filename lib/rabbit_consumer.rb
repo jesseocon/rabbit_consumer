@@ -10,20 +10,22 @@ require 'consumer/custom_logger.rb'
 
 module RabbitConsumer
   
-  RABBIT_MQ_CREDS = {
-    :host      => "127.0.0.1",
-    :port      => 5672,
-    :user      => "guest",
-    :pass      => "guest",
-    :vhost     => "/",
-    :ssl       => false,
-    :heartbeat => 0,
-    :frame_max => 131072
-  }
+  # RABBIT_MQ_CREDS = {
+  #   :host      => "127.0.0.1",
+  #   :port      => 5672,
+  #   :user      => "guest",
+  #   :pass      => "guest",
+  #   :vhost     => "/",
+  #   :ssl       => false,
+  #   :heartbeat => 0,
+  #   :frame_max => 131072
+  # }
+  
+  
   
   # run loop customize to process stuff
   EventMachine.run do
-    AMQP.connect(RABBIT_MQ_CREDS) do |connection|
+    AMQP.connect(ENV['RABBITMQ_BIGWIG_RX_URL']) do |connection|
       
       channel = AMQP::Channel.new(connection)
       custom_logger = RabbitConsumer::CustomLogger.new('email')
