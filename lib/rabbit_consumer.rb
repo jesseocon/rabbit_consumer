@@ -21,8 +21,7 @@ module RabbitConsumer
       queue = channel.queue("email.welcome").bind(exchange, routing_key: 'email.welcome')
       
       queue.subscribe do |payload|
-        custom_logger.info(payload)
-        
+        params = JSON.parse(payload)
         # json should be {"to_email":"jesseocon@gmail.com", "name":"Jesse Ocon"}
         mailer = RabbitConsumer::Mailer.new(params)
         mailer.sendit
