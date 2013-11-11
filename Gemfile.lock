@@ -1,32 +1,58 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (4.0.0)
+      i18n (~> 0.6, >= 0.6.4)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.37)
     amq-protocol (1.8.0)
     amqp (1.1.1)
       amq-protocol (>= 1.8.0)
       eventmachine
+    atomic (1.1.14)
+    diff-lcs (1.2.4)
     dotenv (0.9.0)
     eventmachine (1.0.3)
     excon (0.27.6)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
     foreman (0.63.0)
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     httparty (0.12.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+    i18n (0.6.5)
     json (1.8.1)
     mandrill-api (1.0.49)
       excon (>= 0.16.0, < 1.0)
       json (>= 1.7.7, < 2.0)
+    minitest (4.7.5)
+    multi_json (1.8.2)
     multi_xml (0.5.5)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.4)
+    rspec-expectations (2.14.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.2)
     thor (0.18.1)
+    thread_safe (0.1.3)
+      atomic
+    tzinfo (0.3.38)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   amqp
+  factory_girl
   foreman
   httparty
   json
   mandrill-api (~> 1.0.49)
+  rspec (~> 2.14.1)

@@ -1,9 +1,9 @@
 source 'https://rubygems.org' 
 
 gem 'amqp'
-gem 'json'
-gem 'httparty'
-gem "mandrill-api", "~> 1.0.49"
+gem 'factory_girl'
 gem "foreman"
-
-#'nV7em71ftC076QE6pWhPgA'
+gem 'httparty'
+gem 'json'
+gem "mandrill-api", "~> 1.0.49"
+gem "rspec", "~> 2.14.1"

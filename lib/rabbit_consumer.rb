@@ -9,20 +9,7 @@ $:.unshift File.dirname(__FILE__)
 require 'consumer/custom_logger.rb'
 
 module RabbitConsumer
-  
-  # RABBIT_MQ_CREDS = {
-  #   :host      => "127.0.0.1",
-  #   :port      => 5672,
-  #   :user      => "guest",
-  #   :pass      => "guest",
-  #   :vhost     => "/",
-  #   :ssl       => false,
-  #   :heartbeat => 0,
-  #   :frame_max => 131072
-  # }
-  
-  
-  
+
   # run loop customize to process stuff
   EventMachine.run do
     AMQP.connect(ENV['RABBITMQ_BIGWIG_RX_URL']) do |connection|
@@ -36,23 +23,10 @@ module RabbitConsumer
       queue = channel.queue("email.welcome").bind(exchange, routing_key: 'email.welcome')
       queue.subscribe do |payload|
         custom_logger.info(payload)
-         
-        m = Mandrill::API.new
-        message = {  
-         :subject=> "Hello from the Mandrill API",  
-         :from_name=> "Jesse Ocon",  
-         :text=>"Hi Jesse, how are you?",  
-         :to=>[  
-           {  
-             :email=> "jesseocon@gmail.com",  
-             :name=> "Jesse Ocon"  
-           }  
-         ],  
-         :html=>"<html><h1>Hi <strong>message</strong>, how are you?</h1></html>",  
-         :from_email=>"jesseocon@gmail.com"  
-        }  
-        sending = m.messages.send message  
-        puts sending
+        
+        # json should be {"to_email":"jesseocon@gmail.com", "name":"Jesse Ocon"}
+        mailer = RabbitConsumer::Mailer.new(params)
+        mailer.sendit
       end
 
       show_stopper = Proc.new { connection.close { EventMachine.stop } }

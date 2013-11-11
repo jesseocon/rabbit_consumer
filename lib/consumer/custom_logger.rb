@@ -1,8 +1,6 @@
 module RabbitConsumer
   require 'logger'
   class CustomLogger < Logger
-    START_SPACER  = "******************STARTED*****************"
-    FINISH_SPACER = "******************FINISHED****************\n"
   
     def format_message(severity, timestamp, progname, msg)
       "#{timestamp} #{severity} #{msg}\n" 
