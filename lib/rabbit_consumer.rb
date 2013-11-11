@@ -15,12 +15,11 @@ module RabbitConsumer
     AMQP.connect(ENV['RABBITMQ_BIGWIG_RX_URL']) do |connection|
       
       channel = AMQP::Channel.new(connection)
-      custom_logger = RabbitConsumer::CustomLogger.new('email')
-      custom_logger.info("starting Rabbit MQ Consumer") 
-      
       
       exchange = channel.topic('folioemail', auto_delete: true)
+      
       queue = channel.queue("email.welcome").bind(exchange, routing_key: 'email.welcome')
+      
       queue.subscribe do |payload|
         custom_logger.info(payload)
         
