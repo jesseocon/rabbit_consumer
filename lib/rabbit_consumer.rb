@@ -6,7 +6,7 @@ require 'httparty'
 require 'mandrill'
 $:.unshift File.dirname(__FILE__)
 
-require 'consumer/custom_logger.rb'
+require './lib/consumer/mailer.rb'
 
 module RabbitConsumer
 
